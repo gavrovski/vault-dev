@@ -16,5 +16,7 @@ jobs:
     - name: Build the vault-dev Docker image
       run: |
             docker build . --tag ghcr.io/gavrovski/vault-dev:latest
-            docker run ghcr.io/gavrovski/vault-dev:latest
             docker push ghcr.io/gavrovski/vault-dev:latest
+
+# this goes before the 'push' but now it's disabled
+#            docker run ghcr.io/gavrovski/vault-dev:latest
