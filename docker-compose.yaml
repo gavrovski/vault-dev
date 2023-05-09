@@ -1,0 +1,14 @@
+version: "3.5"
+services:
+  vault:
+    image: ghcr.io/gavrovski/vault-dev:latest
+    restart: always
+    ports:
+      - 8200:8200
+      - 8201:8201
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: 'vault-rocks'
+    volumes: 
+      - ./secrets.json:/opt/secrets.json
+      - ./app-role.json:/opt/app-id.json
+      - ./policies.json:/opt/policies.json
