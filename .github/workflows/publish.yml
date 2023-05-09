@@ -3,18 +3,18 @@ on: [push]
 jobs:
   publish-hello-docker-image:
     runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v2
+    steps:
+    - uses: actions/checkout@v2
 
-        - name: Login to GitHub Container Registry
-          uses: docker/login-action@v1
-          with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-        - name: Build the vault-dev Docker image
-          run: |
-                docker build . --tag ghcr.io/gavrovski/vault-dev:latest
-                docker run ghcr.io/gavrovski/vault-dev:latest
-                docker push ghcr.io/gavrovski/vault-dev:latest
+    - name: Build the vault-dev Docker image
+      run: |
+            docker build . --tag ghcr.io/gavrovski/vault-dev:latest
+            docker run ghcr.io/gavrovski/vault-dev:latest
+            docker push ghcr.io/gavrovski/vault-dev:latest
