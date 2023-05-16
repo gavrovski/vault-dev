@@ -14,14 +14,19 @@ if [ -n "$VAULT_LOCAL_CONFIG" ]; then
 	echo "$VAULT_LOCAL_CONFIG" > "$VAULT_CONFIG_DIR/local.json"
 fi
 
-vault server \
-	-config="$VAULT_CONFIG_DIR" \
-	-dev-root-token-id="${VAULT_DEV_ROOT_TOKEN_ID:-root}" \
-	-dev-listen-address="${VAULT_DEV_LISTEN_ADDRESS:-"0.0.0.0:8200"}" \
-	-dev "$@" &
+vault server -config="$VAULT_CONFIG_DIR" -dev-root-token-id="${VAULT_DEV_ROOT_TOKEN_ID:-root}" -dev-listen-address="${VAULT_DEV_LISTEN_ADDRESS:-"0.0.0.0:8200"}" -dev "$@" &
+
+sleep 2;
 
 # Poll until Vault is ready
-for i in {1..10}; do (vault status) > /dev/null 2>&1 && break || if [ "$i" -lt 11 ]; then sleep $((i * 2)); else echo 'Timeout waiting for Vault to be ready' && exit 1; fi; done
+for i in {1..10}; do 
+	(vault status) > /dev/null 2>&1 && break || if [ "$i" -lt 11 ]; 
+		then 
+			sleep $((i * 2)); 
+		else 
+			echo 'Timeout waiting for Vault to be ready' && exit 1; 
+	fi; 
+done
 
 # parse JSON array, populate Vault
 if [[ -f "$VAULT_SECRETS_FILE" ]]; then
