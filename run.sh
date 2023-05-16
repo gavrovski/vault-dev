@@ -14,7 +14,7 @@ if [ -n "$VAULT_LOCAL_CONFIG" ]; then
 	echo "$VAULT_LOCAL_CONFIG" > "$VAULT_CONFIG_DIR/local.json"
 fi
 
-vault server -config="$VAULT_CONFIG_DIR" -dev-root-token-id="${VAULT_DEV_ROOT_TOKEN_ID:-root}" -dev-listen-address="${VAULT_DEV_LISTEN_ADDRESS:-"0.0.0.0:8200"}" -dev "$@" &
+vault server -config="$VAULT_CONFIG_DIR" -dev-root-token-id="${VAULT_DEV_ROOT_TOKEN_ID:-root}" -dev-listen-address="${VAULT_DEV_LISTEN_ADDRESS:-"0.0.0.0:8200"}" -dev &
 
 sleep 2;
 
